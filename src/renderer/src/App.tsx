@@ -1,5 +1,11 @@
+import QRCodeDemonstration from './components/QRCodeDemonstration'
+
 function App(): JSX.Element {
-  return <></>
+  return (
+    <>
+      <QRCodeDemonstration />
+    </>
+  )
 }
 
 export default App
