@@ -1,5 +1,5 @@
 import { AntDesignOutlined } from '@ant-design/icons'
-import { Collapse, QRCode, Space, Input, theme } from 'antd'
+import { Collapse, QRCode, Space, Input } from 'antd'
 import { useState } from 'react'
 
 function QRCodeDemonstration() {
