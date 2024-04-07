@@ -1,6 +1,6 @@
 # react-antd-qrcode
 
-An Electron application with React and TypeScript
+An Electron application with React and TypeScript to present the Ant Design Library QRCode component
 
 ## Recommended IDE Setup
 
