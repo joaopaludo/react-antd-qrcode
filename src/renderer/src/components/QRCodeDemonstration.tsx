@@ -1,5 +1,5 @@
-import { AntDesignOutlined } from '@ant-design/icons'
-import { Collapse, QRCode, Space, Input } from 'antd'
+import { AntDesignOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { Collapse, QRCode, Space, Input, Button } from 'antd'
 import { useState } from 'react'
 
 function QRCodeDemonstration() {
@@ -10,6 +10,28 @@ function QRCodeDemonstration() {
 
   const statuses = ['loading', 'expired', 'scanned', 'active']
   const [codeStatus, setCodeStatus] = useState(statuses[3])
+
+  const [size, setSize] = useState<number>(160)
+
+  const aumentar = () => {
+    setSize((prevSize) => {
+      const newSize = prevSize + 10
+      if (newSize >= 300) {
+        return 300
+      }
+      return newSize
+    })
+  }
+
+  const diminuir = () => {
+    setSize((prevSize) => {
+      const newSize = prevSize - 10
+      if (newSize <= 48) {
+        return 48
+      }
+      return newSize
+    })
+  }
 
   return (
     <>
@@ -107,6 +129,20 @@ function QRCodeDemonstration() {
                 <QRCode value={defaultValue} size={300} />
               </Space>
             </div>
+
+            <Button.Group style={{ marginTop: 50, marginBottom: 16 }}>
+              <Button onClick={diminuir} disabled={size <= 48} icon={<MinusOutlined />}>
+                Diminuir
+              </Button>
+              <Button onClick={aumentar} disabled={size >= 300} icon={<PlusOutlined />}>
+                Aumentar
+              </Button>
+            </Button.Group>
+            <QRCode
+              size={size}
+              value="https://ant.design/"
+              icon="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            />
           </div>
         </Panel>
 
