@@ -1,5 +1,5 @@
 import { AntDesignOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
-import { Collapse, QRCode, Space, Input, Button } from 'antd'
+import { Collapse, QRCode, Space, Input, Button, Segmented, type QRCodeProps, Popover } from 'antd'
 import { useState } from 'react'
 
 function QRCodeDemonstration() {
@@ -32,6 +32,26 @@ function QRCodeDemonstration() {
       return newSize
     })
   }
+
+  const downloadQRCode = () => {
+    const canvas = document
+      .getElementById('qr-code-download')
+      ?.querySelector<HTMLCanvasElement>('canvas')
+
+    if (canvas) {
+      const url = canvas.toDataURL()
+      const a = document.createElement('a')
+
+      a.download = 'QRCode.png'
+      a.href = url
+
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+  }
+
+  const [level, setLevel] = useState<string | number>('L')
 
   return (
     <>
@@ -147,18 +167,31 @@ function QRCodeDemonstration() {
         </Panel>
 
         {/*Download*/}
-        <Panel header="Download" key="6">
-          QR Code download content
+        <Panel header="Download" key="6" id="qr-code-download">
+          <QRCode value="https://ant.design/" bgColor="#fff" style={{ marginBottom: 16 }} />
+          <Button type="primary" onClick={downloadQRCode}>
+            Download
+          </Button>
         </Panel>
 
         {/*Error Level*/}
         <Panel header="Error Level" key="7">
-          Error level content
+          <QRCode
+            style={{ marginBottom: 16 }}
+            errorLevel={level as QRCodeProps['errorLevel']}
+            value="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+          />
+          <Segmented options={['L', 'M', 'Q', 'H']} value={level} onChange={setLevel} />
         </Panel>
 
         {/*Pop up*/}
         <Panel header="Uso em pop up" key="8">
-          Pop up content
+          <Popover
+            overlayInnerStyle={{ padding: 0 }}
+            content={<QRCode value="https://ant.design" bordered={false} />}
+          >
+            <Button type="primary">Hover me</Button>
+          </Popover>
         </Panel>
       </Collapse>
     </>
